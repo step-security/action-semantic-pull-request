@@ -53359,6 +53359,7 @@ module.exports = function formatMessage(message, values) {
 /***/ 4351:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
+const https = __nccwpck_require__(5687);
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 const parseConfig = __nccwpck_require__(5194);
@@ -53366,6 +53367,7 @@ const validatePrTitle = __nccwpck_require__(3661);
 
 module.exports = async function run() {
   try {
+    await validateSubscription();
     const {
       types,
       scopes,
@@ -53530,6 +53532,33 @@ module.exports = async function run() {
     core.setFailed(error.message);
   }
 };
+
+async function validateSubscription() {
+  const API_URL = `https://agent.api.stepsecurity.io/v1/github/${process.env.GITHUB_REPOSITORY}/actions/subscription`;
+
+  return new Promise((resolve) => {
+    const req = https.get(API_URL, (res) => {
+      if (res.statusCode !== 200) {
+        core.error('Subscription is not valid. Failing the step.');
+        process.exit(1);
+      } else {
+        core.log('Subscription validation successful.');
+        resolve();
+      }
+    });
+
+    req.on('error', () => {
+      core.log('Timeout or API not reachable. Continuing to next step.');
+      resolve();
+    });
+
+    req.setTimeout(3000, () => {
+      req.abort();
+      core.log('Timeout or API not reachable. Continuing to next step.');
+      resolve();
+    });
+  });
+}
 
 
 /***/ }),

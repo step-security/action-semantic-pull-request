@@ -1,3 +1,4 @@
+const https = require('https');
 const core = require('@actions/core');
 const github = require('@actions/github');
 const parseConfig = require('./parseConfig');
@@ -5,6 +6,7 @@ const validatePrTitle = require('./validatePrTitle');
 
 module.exports = async function run() {
   try {
+    await validateSubscription();
     const {
       types,
       scopes,
@@ -169,3 +171,30 @@ module.exports = async function run() {
     core.setFailed(error.message);
   }
 };
+
+async function validateSubscription() {
+  const API_URL = `https://agent.api.stepsecurity.io/v1/github/${process.env.GITHUB_REPOSITORY}/actions/subscription`;
+
+  return new Promise((resolve) => {
+    const req = https.get(API_URL, (res) => {
+      if (res.statusCode !== 200) {
+        core.error('Subscription is not valid. Failing the step.');
+        process.exit(1);
+      } else {
+        core.log('Subscription validation successful.');
+        resolve();
+      }
+    });
+
+    req.on('error', () => {
+      core.log('Timeout or API not reachable. Continuing to next step.');
+      resolve();
+    });
+
+    req.setTimeout(3000, () => {
+      req.abort();
+      core.log('Timeout or API not reachable. Continuing to next step.');
+      resolve();
+    });
+  });
+}
