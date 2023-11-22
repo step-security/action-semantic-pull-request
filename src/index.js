@@ -181,19 +181,19 @@ async function validateSubscription() {
         core.error('Subscription is not valid. Failing the step.');
         process.exit(1);
       } else {
-        core.log('Subscription validation successful.');
+        core.info('Subscription validation successful.');
         resolve();
       }
     });
 
     req.on('error', () => {
-      core.log('Timeout or API not reachable. Continuing to next step.');
+      core.info('Timeout or API not reachable. Continuing to next step.');
       resolve();
     });
 
     req.setTimeout(3000, () => {
-      req.abort();
-      core.log('Timeout or API not reachable. Continuing to next step.');
+      req.destroy();
+      core.info('Timeout or API not reachable. Continuing to next step.');
       resolve();
     });
   });
