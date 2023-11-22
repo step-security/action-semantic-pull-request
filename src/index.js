@@ -190,11 +190,5 @@ async function validateSubscription() {
       core.info('Timeout or API not reachable. Continuing to next step.');
       resolve();
     });
-
-    req.setTimeout(3000, () => {
-      req.destroy();
-      core.info('Timeout or API not reachable. Continuing to next step.');
-      resolve();
-    });
   });
 }
