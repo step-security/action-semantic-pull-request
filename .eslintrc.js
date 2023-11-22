@@ -6,6 +6,7 @@ module.exports = {
   extends: 'molindo/javascript',
   env: {
     node: true,
-    jest: true
+    jest: true,
+    es6: true
   }
 };

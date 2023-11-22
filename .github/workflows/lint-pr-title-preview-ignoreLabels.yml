@@ -26,7 +26,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          STEPSECURITY_API_KEY: ${{ secrets.STEPSECURITY_API_KEY }}
           ignoreLabels: |
             bot
             ignore-semantic-pull-request
