@@ -56999,10 +56999,10 @@ async function validateSubscription() {
   try {
     const response = await axios.get(API_URL, {timeout: 3000});
 
-    if (response.status === 200) {
-      core.info('Subscription validation successful.');
-    } else {
-      console.error('Subscription is not valid. Failing the step.');
+    if (response.status !== 200) {
+      console.error(
+        'Subscription is not valid. Reach out to support@stepsecurity.io'
+      );
       process.exit(1);
     }
   } catch (error) {
