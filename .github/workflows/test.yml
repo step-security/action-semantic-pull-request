@@ -17,10 +17,10 @@ jobs:
         uses: step-security/harden-runner@v2
         with:
           egress-policy: audit
-
-      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: 20
+      - run: yarn install
+      - uses: actions/checkout@v4
       - run: yarn install
       - run: yarn lint && yarn test
