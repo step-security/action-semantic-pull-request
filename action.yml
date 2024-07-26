@@ -1,11 +1,11 @@
 name: semantic-pull-request
 description: Ensure your PR title matches the Conventional Commits spec (https://www.conventionalcommits.org/).
 runs:
-  using: "node20"
-  main: "dist/index.js"
+  using: 'node20'
+  main: 'dist/index.js'
 branding:
-  icon: "shield"
-  color: "green"
+  icon: 'shield'
+  color: 'green'
 inputs:
   types:
     description: "Provide custom types (newline delimited) if you don't want the default ones from https://www.conventionalcommits.org."
@@ -17,7 +17,7 @@ inputs:
     description: "Configure that a scope must always be provided."
     required: false
   disallowScopes:
-    description: "Configure which scopes are disallowed in PR titles (newline delimited). These are regex patterns auto-wrapped in ` ^$`."
+    description: 'Configure which scopes are disallowed in PR titles (newline delimited). These are regex patterns auto-wrapped in ` ^$`.'
     required: false
   subjectPattern:
     description: "Configure additional validation for the subject based on a regex. E.g. '^(?![A-Z]).+$' ensures the subject doesn't start with an uppercase character."
@@ -26,7 +26,7 @@ inputs:
     description: "If `subjectPattern` is configured, you can use this property to override the default error message that is shown when the pattern doesn't match. The variables `subject` and `title` can be used within the message."
     required: false
   validateSingleCommit:
-    description: 'When using "Squash and merge" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit, and it''s easy to commit this by mistake. Enable this option to also validate the commit message for one commit PRs.'
+    description: "When using \"Squash and merge\" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit, and it's easy to commit this by mistake. Enable this option to also validate the commit message for one commit PRs." 
     required: false
   validateSingleCommitMatchesPrTitle:
     description: "Related to `validateSingleCommit` you can opt-in to validate that the PR title matches a single commit to avoid confusion."
@@ -34,7 +34,7 @@ inputs:
   githubBaseUrl:
     description: "The GitHub base URL will be automatically set to the correct value from the GitHub context variable. If you want to override this, you can do so here (not recommended)."
     required: false
-    default: "${{ github.api_url }}"
+    default: '${{ github.api_url }}'
   ignoreLabels:
     description: "If the PR contains one of these labels (newline delimited), the validation is skipped. If you want to rerun the validation when labels change, you might want to use the `labeled` and `unlabeled` event triggers in your workflow."
     required: false

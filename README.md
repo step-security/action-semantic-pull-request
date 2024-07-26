@@ -19,7 +19,6 @@ See [Conventional Commits](https://www.conventionalcommits.org/) for more exampl
 
 1. If your goal is to create squashed commits that will be used for automated releases, you'll want to configure your GitHub repository to [use the squash & merge strategy](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests) and tick the option "Default to PR title for squash merge commits".
 2. [Add the action](https://docs.github.com/en/actions/quickstart) with the following configuration:
-
 ```yml
 name: "Lint PR"
 
@@ -29,6 +28,7 @@ on:
       - opened
       - edited
       - synchronize
+      - reopened
 
 permissions:
   pull-requests: read
@@ -60,54 +60,54 @@ feat(ui): Add `Button` component
 ```
 
 ```yml
-with:
-  # Configure which types are allowed (newline-delimited).
-  # Default: https://github.com/commitizen/conventional-commit-types
-  types: |
-    fix
-    feat
-  # Configure which scopes are allowed (newline-delimited).
-  # These are regex patterns auto-wrapped in `^ $`.
-  scopes: |
-    core
-    ui
-    JIRA-\d+
-  # Configure that a scope must always be provided.
-  requireScope: true
-  # Configure which scopes are disallowed in PR titles (newline-delimited).
-  # For instance by setting the value below, `chore(release): ...` (lowercase)
-  # and `ci(e2e,release): ...` (unknown scope) will be rejected.
-  # These are regex patterns auto-wrapped in `^ $`.
-  disallowScopes: |
-    release
-    [A-Z]+
-  # Configure additional validation for the subject based on a regex.
-  # This example ensures the subject doesn't start with an uppercase character.
-  subjectPattern: ^(?![A-Z]).+$
-  # If `subjectPattern` is configured, you can use this property to override
-  # the default error message that is shown when the pattern doesn't match.
-  # The variables `subject` and `title` can be used within the message.
-  subjectPatternError: |
-    The subject "{subject}" found in the pull request title "{title}"
-    didn't match the configured pattern. Please ensure that the subject
-    doesn't start with an uppercase character.
-  # The GitHub base URL will be automatically set to the correct value from the GitHub context variable.
-  # If you want to override this, you can do so here (not recommended).
-  githubBaseUrl: https://github.myorg.com/api/v3
-  # If the PR contains one of these newline-delimited labels, the
-  # validation is skipped. If you want to rerun the validation when
-  # labels change, you might want to use the `labeled` and `unlabeled`
-  # event triggers in your workflow.
-  ignoreLabels: |
-    bot
-    ignore-semantic-pull-request
-  # If you're using a format for the PR title that differs from the traditional Conventional
-  # Commits spec, you can use these options to customize the parsing of the type, scope and
-  # subject. The `headerPattern` should contain a regex where the capturing groups in parentheses
-  # correspond to the parts listed in `headerPatternCorrespondence`.
-  # See: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
-  headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
-  headerPatternCorrespondence: type, scope, subject
+        with:
+          # Configure which types are allowed (newline-delimited).
+          # Default: https://github.com/commitizen/conventional-commit-types
+          types: |
+            fix
+            feat
+          # Configure which scopes are allowed (newline-delimited).
+          # These are regex patterns auto-wrapped in `^ $`.
+          scopes: |
+            core
+            ui
+            JIRA-\d+
+          # Configure that a scope must always be provided.
+          requireScope: true
+          # Configure which scopes are disallowed in PR titles (newline-delimited).
+          # For instance by setting the value below, `chore(release): ...` (lowercase)
+          # and `ci(e2e,release): ...` (unknown scope) will be rejected.
+          # These are regex patterns auto-wrapped in `^ $`.
+          disallowScopes: |
+            release
+            [A-Z]+
+          # Configure additional validation for the subject based on a regex.
+          # This example ensures the subject doesn't start with an uppercase character.
+          subjectPattern: ^(?![A-Z]).+$
+          # If `subjectPattern` is configured, you can use this property to override
+          # the default error message that is shown when the pattern doesn't match.
+          # The variables `subject` and `title` can be used within the message.
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}"
+            didn't match the configured pattern. Please ensure that the subject
+            doesn't start with an uppercase character.
+          # The GitHub base URL will be automatically set to the correct value from the GitHub context variable.
+          # If you want to override this, you can do so here (not recommended).
+          githubBaseUrl: https://github.myorg.com/api/v3
+          # If the PR contains one of these newline-delimited labels, the
+          # validation is skipped. If you want to rerun the validation when
+          # labels change, you might want to use the `labeled` and `unlabeled`
+          # event triggers in your workflow.
+          ignoreLabels: |
+            bot
+            ignore-semantic-pull-request
+          # If you're using a format for the PR title that differs from the traditional Conventional
+          # Commits spec, you can use these options to customize the parsing of the type, scope and
+          # subject. The `headerPattern` should contain a regex where the capturing groups in parentheses
+          # correspond to the parts listed in `headerPatternCorrespondence`.
+          # See: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
+          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
+          headerPatternCorrespondence: type, scope, subject
 ```
 
 ### Work-in-progress pull requests
@@ -144,15 +144,15 @@ jobs:
 
 ### Legacy configuration for validating single commits
 
-When using "Squash and merge" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit. As it's easy to commit this by mistake this action supports two configuration options to provide additional validation for this case.
+When using "Squash and merge" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit. As it's easy to commit this by mistake this action supports two configuration options to provide additional validation for this case. 
 
 ```yml
-# If the PR only contains a single commit, the action will validate that
-# it matches the configured pattern.
-validateSingleCommit: true
-# Related to `validateSingleCommit` you can opt-in to validate that the PR
-# title matches a single commit to avoid confusion.
-validateSingleCommitMatchesPrTitle: true
+          # If the PR only contains a single commit, the action will validate that
+          # it matches the configured pattern.
+          validateSingleCommit: true
+          # Related to `validateSingleCommit` you can opt-in to validate that the PR
+          # title matches a single commit to avoid confusion.
+          validateSingleCommitMatchesPrTitle: true
 ```
 
 However, [GitHub has introduced an option to streamline this behaviour](https://github.blog/changelog/2022-05-11-default-to-pr-titles-for-squash-merge-commit-messages/), so using that instead should be preferred.
@@ -166,14 +166,15 @@ There are two events that can be used as triggers for this action, each with dif
 
 ## Outputs
 
-In case the validation fails, this action will populate the `error_message` ouput.
+- The outputs `type`, `scope` and `subject` are populated, except for if the `wip` option is used.
+- The `error_message` output will be populated in case the validation fails.
 
 [An output can be used in other steps](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs), for example to comment the error message onto the pull request.
 
 <details>
 <summary>Example</summary>
 
-````yml
+```yml
 name: "Lint PR"
 
 on:
@@ -204,11 +205,11 @@ jobs:
           header: pr-title-lint-error
           message: |
             Hey there and thank you for opening this pull request! 👋🏼
-
+            
             We require pull request titles to follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/) and it looks like your proposed title needs to be adjusted.
 
             Details:
-
+            
             ```
             ${{ steps.lint_pr_title.outputs.error_message }}
             ```
@@ -216,9 +217,9 @@ jobs:
       # Delete a previous comment when the issue has been resolved
       - if: ${{ steps.lint_pr_title.outputs.error_message == null }}
         uses: marocchino/sticky-pull-request-comment@v2
-        with:
+        with:   
           header: pr-title-lint-error
           delete: true
-````
+```
 
 </details>
