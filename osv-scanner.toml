@@ -1,0 +1,3 @@
+[[ignores]]
+id = "GHSA-8hc4-vh64-cxmj"
+reason = "Axios URL is not user-controlled"
