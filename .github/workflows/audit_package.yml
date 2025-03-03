@@ -7,6 +7,11 @@ on:
         description: "Specify a base branch"
         required: false
         default: "main"
+      package_manager:
+        description: "Specify package manager (npm or yarn)"
+        required: false
+        default: "yarn"
+  
   schedule:
     - cron: "0 0 * * 1"
 
@@ -15,6 +20,7 @@ jobs:
     uses: step-security/reusable-workflows/.github/workflows/audit_fix.yml@v1
     with:
       base_branch: ${{ inputs.base_branch || 'main' }}
+      package_manager: "yarn"
 
 permissions:
   contents: write
