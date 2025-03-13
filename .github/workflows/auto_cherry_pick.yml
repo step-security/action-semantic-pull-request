@@ -27,8 +27,8 @@ jobs:
   audit-fix:
     uses: step-security/reusable-workflows/.github/workflows/auto_cherry_pick.yaml@fix_UpStream-Changes-Cherry-Pick
     with:
-      original-owner: "supercharge"
-      repo-name: "mongodb-github-action"
+      original-owner: "amannn"
+      repo-name: "action-semantic-pull-request
       base_branch: ${{ inputs.base_branch }}
       script: ${{ inputs.script }}
       package_manager: ${{ inputs.package_manager }}
