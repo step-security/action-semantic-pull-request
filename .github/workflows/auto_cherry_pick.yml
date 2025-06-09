@@ -28,7 +28,7 @@ jobs:
     uses: step-security/reusable-workflows/.github/workflows/auto_cherry_pick.yaml@v1
     with:
       original-owner: "amannn"
-      repo-name: "action-semantic-pull-request
+      repo-name: "action-semantic-pull-request"
       base_branch: ${{ inputs.base_branch }}
       script: ${{ inputs.script }}
       package_manager: ${{ inputs.package_manager }}
