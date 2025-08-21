@@ -15,7 +15,6 @@ on:
         description: "Specify package manager if available (npm or yarn)"
         required: false
         default: "yarn"
-      
 
 permissions:
   contents: write
@@ -25,10 +24,12 @@ permissions:
 
 jobs:
   cherry-pick:
+    if: github.event_name == 'workflow_dispatch' || contains(fromJson(toJson(github.event.pull_request.labels)).*.name, 'review-required')
     uses: step-security/reusable-workflows/.github/workflows/auto_cherry_pick.yaml@v1
     with:
       original-owner: "amannn"
-      repo-name: "action-semantic-pull-request
+      repo-name: "action-semantic-pull-request"
       base_branch: ${{ inputs.base_branch }}
       script: ${{ inputs.script }}
       package_manager: ${{ inputs.package_manager }}
+      mode: ${{ github.event_name == 'pull_request' && 'verify' || inputs.mode }}
