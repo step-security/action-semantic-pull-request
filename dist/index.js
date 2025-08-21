@@ -58509,55 +58509,14 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 6308:
-/***/ ((module) => {
-
-const ENUM_SPLIT_REGEX = /\n/;
-
-module.exports = {
-  parseEnum(input) {
-    return input
-      .split(ENUM_SPLIT_REGEX)
-      .map((part) => part.trim())
-      .filter((part) => part.length > 0);
-  },
-
-  parseBoolean(input) {
-    return JSON.parse(input.trim());
-  },
-
-  parseString(input) {
-    return input;
-  }
-};
-
-
-/***/ }),
-
-/***/ 8636:
-/***/ ((module) => {
-
-module.exports = function formatMessage(message, values) {
-  let formatted = message;
-  if (values) {
-    Object.entries(values).forEach(([key, value]) => {
-      formatted = formatted.replace(new RegExp(`{${key}}`, 'g'), value);
-    });
-  }
-  return formatted;
-};
-
-
-/***/ }),
-
 /***/ 4351:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 const axios = __nccwpck_require__(8757);
-const parseConfig = __nccwpck_require__(5194);
-const validatePrTitle = __nccwpck_require__(3661);
+const parseConfig = __nccwpck_require__(9000);
+const validatePrTitle = __nccwpck_require__(4484);
 
 module.exports = async function run() {
   try {
@@ -58675,7 +58634,7 @@ module.exports = async function run() {
               });
             } catch (error) {
               throw new Error(
-                `Pull request has only one commit and it's not semantic; this may lead to a non-semantic commit in the base branch (see https://github.com/community/community/discussions/16271). Amend the commit message to match the pull request title, or add another commit.`
+                `Pull request has only one commit and it's not semantic; this may lead to a non-semantic commit in the base branch (see https://github.com/community/community/discussions/16271 ). Amend the commit message to match the pull request title, or add another commit.`
               );
             }
 
@@ -58747,12 +58706,42 @@ async function validateSubscription() {
 
 /***/ }),
 
-/***/ 5194:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ 9000:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
-const ConfigParser = __nccwpck_require__(6308);
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
 
-module.exports = function parseConfig() {
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ parseConfig)
+});
+
+;// CONCATENATED MODULE: ./src/ConfigParser.js
+const ENUM_SPLIT_REGEX = /\n/;
+
+/* harmony default export */ const ConfigParser = ({
+  parseEnum(input) {
+    return input
+      .split(ENUM_SPLIT_REGEX)
+      .map((part) => part.trim())
+      .filter((part) => part.length > 0);
+  },
+
+  parseBoolean(input) {
+    return JSON.parse(input.trim());
+  },
+
+  parseString(input) {
+    return input;
+  }
+});
+
+;// CONCATENATED MODULE: ./src/parseConfig.js
+
+
+function parseConfig() {
   let types;
   if (process.env.INPUT_TYPES) {
     types = ConfigParser.parseEnum(process.env.INPUT_TYPES);
@@ -58841,23 +58830,56 @@ module.exports = function parseConfig() {
     githubBaseUrl,
     ignoreLabels
   };
-};
+}
 
 
 /***/ }),
 
-/***/ 3661:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ 4484:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
-const core = __nccwpck_require__(2186);
-const conventionalCommitsConfig = __nccwpck_require__(8761);
-const conventionalCommitTypes = __nccwpck_require__(9682);
-const parser = (__nccwpck_require__(1655).sync);
-const formatMessage = __nccwpck_require__(8636);
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
 
-const defaultTypes = Object.keys(conventionalCommitTypes.types);
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ validatePrTitle)
+});
 
-module.exports = async function validatePrTitle(
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(2186);
+var core_default = /*#__PURE__*/__nccwpck_require__.n(core);
+// EXTERNAL MODULE: ./node_modules/conventional-changelog-conventionalcommits/index.js
+var conventional_changelog_conventionalcommits = __nccwpck_require__(8761);
+var conventional_changelog_conventionalcommits_default = /*#__PURE__*/__nccwpck_require__.n(conventional_changelog_conventionalcommits);
+;// CONCATENATED MODULE: ./node_modules/conventional-commit-types/index.json
+const conventional_commit_types_namespaceObject = JSON.parse('{"V":{"feat":{"description":"A new feature","title":"Features"},"fix":{"description":"A bug fix","title":"Bug Fixes"},"docs":{"description":"Documentation only changes","title":"Documentation"},"style":{"description":"Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)","title":"Styles"},"refactor":{"description":"A code change that neither fixes a bug nor adds a feature","title":"Code Refactoring"},"perf":{"description":"A code change that improves performance","title":"Performance Improvements"},"test":{"description":"Adding missing tests or correcting existing tests","title":"Tests"},"build":{"description":"Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)","title":"Builds"},"ci":{"description":"Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)","title":"Continuous Integrations"},"chore":{"description":"Other changes that don\'t modify src or test files","title":"Chores"},"revert":{"description":"Reverts a previous commit","title":"Reverts"}}}');
+// EXTERNAL MODULE: ./node_modules/conventional-commits-parser/index.js
+var conventional_commits_parser = __nccwpck_require__(1655);
+;// CONCATENATED MODULE: ./src/formatMessage.js
+function formatMessage(message, values) {
+  let formatted = message;
+  if (values) {
+    Object.entries(values).forEach(([key, value]) => {
+      formatted = formatted.replace(new RegExp(`{${key}}`, 'g'), value);
+    });
+  }
+  return formatted;
+}
+
+;// CONCATENATED MODULE: ./src/validatePrTitle.js
+
+// eslint-disable-next-line import/no-unresolved -- False positive
+
+
+// eslint-disable-next-line import/no-unresolved -- False positive
+
+
+
+const defaultTypes = Object.keys(conventional_commit_types_namespaceObject.V);
+
+async function validatePrTitle(
   prTitle,
   {
     types,
@@ -58872,17 +58894,18 @@ module.exports = async function validatePrTitle(
 ) {
   if (!types) types = defaultTypes;
 
-  const {parserOpts} = await conventionalCommitsConfig();
+  const {parser: parserOpts} = await conventional_changelog_conventionalcommits_default()();
   if (headerPattern) {
     parserOpts.headerPattern = headerPattern;
   }
   if (headerPatternCorrespondence) {
     parserOpts.headerCorrespondence = headerPatternCorrespondence;
   }
-  const result = parser(prTitle, parserOpts);
-  core.setOutput('type', result.type);
-  core.setOutput('scope', result.scope);
-  core.setOutput('subject', result.subject);
+  const result = new conventional_commits_parser.CommitParser(parserOpts).parse(prTitle);
+
+  core_default().setOutput('type', result.type);
+  core_default().setOutput('scope', result.scope);
+  core_default().setOutput('subject', result.subject);
 
   function printAvailableTypes() {
     return `Available types:\n${types
@@ -58890,7 +58913,7 @@ module.exports = async function validatePrTitle(
         let bullet = ` - ${type}`;
 
         if (types === defaultTypes) {
-          bullet += `: ${conventionalCommitTypes.types[type].description}`;
+          bullet += `: ${conventional_commit_types_namespaceObject.V[type].description}`;
         }
 
         return bullet;
@@ -58991,11 +59014,11 @@ module.exports = async function validatePrTitle(
   }
 
   function raiseError(message) {
-    core.setOutput('error_message', message);
+    core_default().setOutput('error_message', message);
 
     throw new Error(message);
   }
-};
+}
 
 
 /***/ }),
@@ -65632,14 +65655,6 @@ module.exports = axios;
 
 /***/ }),
 
-/***/ 9682:
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse('{"types":{"feat":{"description":"A new feature","title":"Features"},"fix":{"description":"A bug fix","title":"Bug Fixes"},"docs":{"description":"Documentation only changes","title":"Documentation"},"style":{"description":"Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)","title":"Styles"},"refactor":{"description":"A code change that neither fixes a bug nor adds a feature","title":"Code Refactoring"},"perf":{"description":"A code change that improves performance","title":"Performance Improvements"},"test":{"description":"Adding missing tests or correcting existing tests","title":"Tests"},"build":{"description":"Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)","title":"Builds"},"ci":{"description":"Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)","title":"Continuous Integrations"},"chore":{"description":"Other changes that don\'t modify src or test files","title":"Chores"},"revert":{"description":"Reverts a previous commit","title":"Reverts"}}}');
-
-/***/ }),
-
 /***/ 3765:
 /***/ ((module) => {
 
@@ -65684,6 +65699,46 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__nccwpck_require__.nmd = (module) => {
