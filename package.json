@@ -4,9 +4,9 @@
   "description": "Ensure your PR title matches the Conventional Commits spec.",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint src",
-    "test": "jest src",
-    "build": "rm -rf dist && ncc build"
+    "lint": "eslint src && prettier --check src",
+    "test": "vitest src",
+    "build": "rm -rf dist && rollup -c"
   },
   "repository": {
     "type": "git",
@@ -37,5 +37,6 @@
   },
   "engines": {
     "node": "^20.0.0"
-  }
+  },
+  "prettier": "eslint-config-molindo/.prettierrc.json"
 }
