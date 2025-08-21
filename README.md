@@ -30,13 +30,12 @@ on:
       - synchronize
       - reopened
 
-permissions:
-  pull-requests: read
-
 jobs:
   main:
     name: Validate PR title
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     steps:
       - uses: step-security/action-semantic-pull-request@v5
         env:
@@ -134,6 +133,8 @@ jobs:
   main:
     name: Validate PR title
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     steps:
       - uses: step-security/action-semantic-pull-request@v5
         env:
@@ -191,6 +192,8 @@ jobs:
   main:
     name: Validate PR title
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     steps:
       - uses: step-security/action-semantic-pull-request@v5
         id: lint_pr_title
