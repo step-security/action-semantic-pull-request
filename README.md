@@ -27,7 +27,6 @@ on:
     types:
       - opened
       - edited
-      - synchronize
       - reopened
 
 jobs:
@@ -183,7 +182,6 @@ on:
     types:
       - opened
       - edited
-      - synchronize
 
 permissions:
   pull-requests: write
