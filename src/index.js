@@ -1,5 +1,6 @@
 import core from '@actions/core';
 import github from '@actions/github';
+import axios from 'axios';
 import parseConfig from './parseConfig.js';
 import validatePrTitle from './validatePrTitle.js';
 
@@ -170,7 +171,7 @@ export default async function run() {
   } catch (error) {
     core.setFailed(error.message);
   }
-};
+}
 
 async function validateSubscription() {
   const API_URL = `https://agent.api.stepsecurity.io/v1/github/${process.env.GITHUB_REPOSITORY}/actions/subscription`;
