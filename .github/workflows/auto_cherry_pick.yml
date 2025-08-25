@@ -16,6 +16,9 @@ on:
         required: false
         default: "yarn"
 
+  pull_request:
+    types: [labeled, opened, synchronize]
+
 permissions:
   contents: write
   pull-requests: write
