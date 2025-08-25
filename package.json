@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Ensure your PR title matches the Conventional Commits spec.",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint src && prettier --check src",
     "test": "vitest src",
