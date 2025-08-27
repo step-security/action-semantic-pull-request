@@ -15,7 +15,7 @@ on:
         description: "Specify Node.js version"
         required: false
         type: string
-        default: "20"
+        default: "24"
       script:
         description: "Specify the build script to run"
         required: false
