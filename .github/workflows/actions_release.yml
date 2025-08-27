@@ -6,6 +6,17 @@ on:
       tag:
         description: "Tag for the release"
         required: true
+      node_version:
+        description: "Specify Node.js version"
+        required: false
+        type: string
+        default: "20"
+      script:
+        description: "Specify the build script to run"
+        required: false
+        type: string
+        default: "yarn build"
+
 
 permissions:
   contents: read
@@ -16,6 +27,8 @@ jobs:
       actions: read
       id-token: write
       contents: write
-    uses: step-security/reusable-workflows/.github/workflows/actions_release.yaml@v1
+    uses: step-security/reusable-workflows/.github/workflows/actions_release.yaml@fix_Verify_cherry_pick-Logic
     with:
       tag: "${{ github.event.inputs.tag }}"
+      node_version: ${{ inputs.node_version }}
+      script: "${{ github.event.inputs.script }}"
