@@ -4,7 +4,7 @@ import axios from 'axios';
 import parseConfig from './parseConfig.js';
 import validatePrTitle from './validatePrTitle.js';
 
-export default async function run() {
+async function run() {
   try {
     await validateSubscription();
     const {
@@ -189,3 +189,5 @@ async function validateSubscription() {
     }
   }
 }
+
+await run();
