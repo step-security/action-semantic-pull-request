@@ -27,6 +27,9 @@ jobs:
           types: |
             fix
             feat
+            chore
+            ci
+            docs
           # Configure which scopes are allowed (newline-delimited).
           # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
