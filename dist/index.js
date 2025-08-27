@@ -52940,5 +52940,5 @@ async function validateSubscription() {
   }
 }
 
-export { run as default };
+await run();
 //# sourceMappingURL=index.js.map
