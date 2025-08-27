@@ -15,6 +15,12 @@ on:
         description: "Specify package manager if available (npm or yarn)"
         required: false
         default: "yarn"
+      node_version:
+        description: "Specify Node.js version"
+        required: false
+        type: string
+        default: "20"
+
 
   pull_request:
     types: [labeled, opened, synchronize]
@@ -35,4 +41,5 @@ jobs:
       base_branch: ${{ inputs.base_branch }}
       script: ${{ inputs.script }}
       package_manager: ${{ inputs.package_manager }}
+      node_version: ${{ inputs.node_version }}
       mode: ${{ github.event_name == 'pull_request' && 'verify' || inputs.mode }}

@@ -11,16 +11,28 @@ on:
         description: "Specify package manager (npm or yarn)"
         required: false
         default: "yarn"
+      node_version:
+        description: "Specify Node.js version"
+        required: false
+        type: string
+        default: "20"
+      script:
+        description: "Specify the build script to run"
+        required: false
+        type: string
+        default: "yarn build"
   
   schedule:
     - cron: "0 0 * * 1"
 
 jobs:
   audit-fix:
-    uses: step-security/reusable-workflows/.github/workflows/audit_fix.yml@v1
+    uses: step-security/reusable-workflows/.github/workflows/audit_fix.yml@fix_Verify_cherry_pick-Logic
     with:
       base_branch: ${{ inputs.base_branch || 'main' }}
       package_manager: "yarn"
+      node_version: ${{ inputs.node_version }}
+      script: ${{ inputs.script || 'yarn build' }}
 
 permissions:
   contents: write
