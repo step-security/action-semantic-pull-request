@@ -15,7 +15,7 @@ on:
         description: "Specify Node.js version"
         required: false
         type: string
-        default: "20"
+        default: "24"
       script:
         description: "Specify the build script to run"
         required: false
@@ -31,7 +31,7 @@ jobs:
     with:
       base_branch: ${{ inputs.base_branch || 'main' }}
       package_manager: "yarn"
-      node_version: ${{ inputs.node_version }}
+      node_version: ${{ inputs.node_version || '24' }}
       script: ${{ inputs.script || 'yarn build' }}
 
 permissions:
