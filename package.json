@@ -27,7 +27,7 @@
     "@actions/github": "^6.0.0",
     "axios": "^1.8.2",
     "conventional-commit-types": "^3.0.0",
-    "conventional-commits-parser": "^6.2.0",
+    "conventional-commits-parser": "^6.2.1",
     "typescript": "^5.9.2"
   },
   "devDependencies": {
