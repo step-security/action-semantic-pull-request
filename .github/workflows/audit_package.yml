@@ -31,7 +31,7 @@ jobs:
     with:
       base_branch: ${{ inputs.base_branch || 'main' }}
       package_manager: "yarn"
-      node_version: ${{ inputs.node_version }}
+      node_version: ${{ inputs.node_version || '24' }}
       script: ${{ inputs.script || 'yarn build' }}
 
 permissions:
