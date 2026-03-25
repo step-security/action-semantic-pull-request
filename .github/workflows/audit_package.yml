@@ -25,17 +25,17 @@ on:
   schedule:
     - cron: "0 0 * * 1"
 
-jobs:
-  audit-fix:
-    uses: step-security/reusable-workflows/.github/workflows/audit_fix.yml@fix_Verify_cherry_pick-Logic
-    with:
-      base_branch: ${{ inputs.base_branch || 'main' }}
-      package_manager: "yarn"
-      node_version: ${{ inputs.node_version || "24.0.0" }}
-      script: ${{ inputs.script || 'yarn build' }}
-
 permissions:
   contents: write
   pull-requests: write
   packages: read
   issues: write
+
+jobs:
+  audit-fix:
+    uses: step-security/reusable-workflows/.github/workflows/audit_fix.yml@fix_Verify_cherry_pick-Logic
+    with:
+      base_branch: ${{ inputs.base_branch || 'main' }}
+      package_manager: ${{ inputs.package_manager || 'yarn' }}
+      node_version: ${{ inputs.node_version || '24.0.0' }}
+      script: ${{ inputs.script || 'yarn build' }}
