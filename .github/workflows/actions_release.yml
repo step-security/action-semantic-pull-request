@@ -27,7 +27,7 @@ jobs:
       actions: read
       id-token: write
       contents: write
-    uses: step-security/reusable-workflows/.github/workflows/actions_release.yaml@fix_Verify_cherry_pick-Logic
+    uses: step-security/reusable-workflows/.github/workflows/actions_release.yaml@v1
     with:
       tag: "${{ github.event.inputs.tag }}"
       node_version: ${{ inputs.node_version }}
