@@ -24,8 +24,8 @@
   "homepage": "https://github.com/step-security/action-semantic-pull-request#readme",
   "dependencies": {
     "@actions/core": "^2.0.0",
-    "@actions/github": "^6.0.0",
-    "axios": "^1.13.5",
+    "@actions/github": "^8.0.1",
+    "axios": "^1.20.0",
     "conventional-commit-types": "^3.0.0",
     "conventional-commits-parser": "^6.2.0",
     "typescript": "^5.9.2"
@@ -40,7 +40,7 @@
     "globals": "^16.3.0",
     "prettier": "^3.6.2",
     "rollup": "^4.46.2",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.11"
   },
   "engines": {
     "node": "^24.0.0"
